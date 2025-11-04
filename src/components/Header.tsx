@@ -1,11 +1,23 @@
-import { Search, ShoppingCart, Heart, User } from 'lucide-react';
+import { Search, ShoppingCart, Heart, User, LogOut } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 type HeaderProps = {
   cartCount: number;
   onCartClick: () => void;
+  onLoginClick: () => void;
 };
 
-export default function Header({ cartCount, onCartClick }: HeaderProps) {
+export default function Header({ cartCount, onCartClick, onLoginClick }: HeaderProps) {
+  const { user, signOut } = useAuth();
+
+  const handleAuthClick = () => {
+    if (user) {
+      signOut();
+    } else {
+      onLoginClick();
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,9 +51,21 @@ export default function Header({ cartCount, onCartClick }: HeaderProps) {
                 </span>
               )}
             </button>
-            <button className="flex items-center space-x-1 text-gray-700 hover:text-gray-900">
-              <User size={20} />
-              <span className="text-sm">Login</span>
+            <button
+              onClick={handleAuthClick}
+              className="flex items-center space-x-1 text-gray-700 hover:text-gray-900"
+            >
+              {user ? (
+                <>
+                  <LogOut size={20} />
+                  <span className="text-sm">Logout</span>
+                </>
+              ) : (
+                <>
+                  <User size={20} />
+                  <span className="text-sm">Login</span>
+                </>
+              )}
             </button>
           </div>
         </div>

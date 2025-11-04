@@ -7,6 +7,7 @@ import ProductCard from './components/ProductCard';
 import CategorySection from './components/CategorySection';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
+import LoginModal from './components/LoginModal';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,6 +16,7 @@ function App() {
   const [cartItems, setCartItems] = useState<(CartItem & { products: Product })[]>([]);
   const [wishlist, setWishlist] = useState<Set<string>>(new Set());
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -102,7 +104,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header cartCount={cartCount} onCartClick={() => setIsCartOpen(true)} />
+      <Header
+        cartCount={cartCount}
+        onCartClick={() => setIsCartOpen(true)}
+        onLoginClick={() => setIsLoginOpen(true)}
+      />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-gradient-to-r from-red-500 via-orange-500 to-orange-400 text-white text-center py-3 rounded-lg mb-6">
@@ -173,6 +179,11 @@ function App() {
         cartItems={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+      />
+
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
       />
     </div>
   );
