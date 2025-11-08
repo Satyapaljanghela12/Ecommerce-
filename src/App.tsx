@@ -123,8 +123,6 @@ function App() {
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
 
-        <Hero />
-
         {!loading && products.length > 0 && (
           <ProductSlider
             products={products.slice(0, 12)}
@@ -134,6 +132,8 @@ function App() {
             isInWishlist={(productId) => wishlist.has(productId)}
           />
         )}
+
+        <Hero />
 
         <CategoryFilter
           categories={categoryNames}
