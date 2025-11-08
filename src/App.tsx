@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
+import ProductSlider from './components/ProductSlider';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
@@ -123,6 +124,16 @@ function App() {
         </div>
 
         <Hero />
+
+        {!loading && products.length > 0 && (
+          <ProductSlider
+            products={products.slice(0, 12)}
+            onAddToCart={handleAddToCart}
+            onToggleWishlist={handleToggleWishlist}
+            onProductClick={setSelectedProduct}
+            isInWishlist={(productId) => wishlist.has(productId)}
+          />
+        )}
 
         <CategoryFilter
           categories={categoryNames}
