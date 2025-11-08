@@ -8,8 +8,12 @@ import CategorySection from './components/CategorySection';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
+import ProductDetail from './components/ProductDetail';
+import UserProfile from './components/UserProfile';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
+  const { user } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -17,6 +21,8 @@ function App() {
   const [wishlist, setWishlist] = useState<Set<string>>(new Set());
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -111,6 +117,18 @@ function App() {
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {user && (
+          <div className="mb-8">
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="text-sm text-green-600 hover:text-green-700 font-medium mb-3"
+            >
+              {isProfileOpen ? 'Hide Profile' : 'View Profile'}
+            </button>
+            {isProfileOpen && <UserProfile />}
+          </div>
+        )}
+
         <div className="bg-gradient-to-r from-red-500 via-orange-500 to-orange-400 text-white text-center py-3 rounded-lg mb-6">
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
@@ -144,6 +162,7 @@ function App() {
                   product={product}
                   onAddToCart={handleAddToCart}
                   onToggleWishlist={handleToggleWishlist}
+                  onProductClick={setSelectedProduct}
                   isInWishlist={wishlist.has(product.id)}
                 />
               ))}
@@ -163,6 +182,7 @@ function App() {
                   product={product}
                   onAddToCart={handleAddToCart}
                   onToggleWishlist={handleToggleWishlist}
+                  onProductClick={setSelectedProduct}
                   isInWishlist={wishlist.has(product.id)}
                 />
               ))}
@@ -179,6 +199,15 @@ function App() {
         cartItems={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+      />
+
+      <ProductDetail
+        product={selectedProduct}
+        isOpen={selectedProduct !== null}
+        onClose={() => setSelectedProduct(null)}
+        onAddToCart={handleAddToCart}
+        onToggleWishlist={handleToggleWishlist}
+        isInWishlist={selectedProduct ? wishlist.has(selectedProduct.id) : false}
       />
 
       <LoginModal

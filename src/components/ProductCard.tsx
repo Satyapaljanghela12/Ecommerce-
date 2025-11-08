@@ -5,6 +5,7 @@ type ProductCardProps = {
   product: Product;
   onAddToCart: (productId: string) => void;
   onToggleWishlist: (productId: string) => void;
+  onProductClick: (product: Product) => void;
   isInWishlist: boolean;
 };
 
@@ -12,6 +13,7 @@ export default function ProductCard({
   product,
   onAddToCart,
   onToggleWishlist,
+  onProductClick,
   isInWishlist,
 }: ProductCardProps) {
   const hasDiscount = product.original_price && product.original_price > product.price;
@@ -37,13 +39,16 @@ export default function ProductCard({
         />
       </button>
 
-      <div className="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+      <button
+        onClick={() => onProductClick(product)}
+        className="w-full aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden hover:bg-gray-200 transition-colors cursor-pointer"
+      >
         {product.image_url ? (
-          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
         ) : (
           <div className="text-6xl">📱</div>
         )}
-      </div>
+      </button>
 
       <div className="space-y-2">
         <p className="text-xs text-gray-500 uppercase">GADGET ACCESSORIES</p>
