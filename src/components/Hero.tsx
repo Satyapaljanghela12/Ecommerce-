@@ -95,18 +95,22 @@ export default function Hero() {
     );
   }
 
-  const currentProduct = products[currentSlide];
-  const hasDiscount = currentProduct.original_price && currentProduct.original_price > currentProduct.price;
-  const discountPercentage = hasDiscount
-    ? Math.round(((currentProduct.original_price! - currentProduct.price) / currentProduct.original_price!) * 100)
-    : 0;
+  const getDiscountInfo = (product: Product) => {
+    const hasDiscount = product.original_price && product.original_price > product.price;
+    const discountPercentage = hasDiscount
+      ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
+      : 0;
+    return { hasDiscount, discountPercentage };
+  };
 
   return (
     <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 md:p-12 mb-8 overflow-hidden group">
       <div className="max-w-7xl mx-auto">
         <div className="relative">
           <div className="flex transition-all duration-700 ease-in-out">
-            {products.map((product, index) => (
+            {products.map((product, index) => {
+              const { hasDiscount, discountPercentage } = getDiscountInfo(product);
+              return (
               <div
                 key={product.id}
                 className={`w-full flex-shrink-0 transition-all duration-700 ${
@@ -144,15 +148,15 @@ export default function Hero() {
                         <p className="text-3xl sm:text-4xl font-bold text-gray-900">
                           ${product.price.toFixed(2)}
                         </p>
-                        {hasDiscount && (
+                        {hasDiscount && product.original_price && (
                           <p className="text-lg text-gray-500 line-through">
-                            ${product.original_price!.toFixed(2)}
+                            ${product.original_price.toFixed(2)}
                           </p>
                         )}
                       </div>
-                      {hasDiscount && (
+                      {hasDiscount && product.original_price && (
                         <div className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-lg shadow-md">
-                          Save ${(product.original_price! - product.price).toFixed(2)}
+                          Save ${(product.original_price - product.price).toFixed(2)}
                         </div>
                       )}
                     </div>
@@ -194,7 +198,8 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
