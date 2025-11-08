@@ -122,6 +122,19 @@ function App() {
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
 
+<<<<<<< HEAD
+=======
+        {!loading && products.length > 0 && (
+          <ProductSlider
+            products={products.slice(0, 12)}
+            onAddToCart={handleAddToCart}
+            onToggleWishlist={handleToggleWishlist}
+            onProductClick={setSelectedProduct}
+            isInWishlist={(productId) => wishlist.has(productId)}
+          />
+        )}
+
+>>>>>>> 536269158d6c17c19ea67771a28536628415f8f3
         <Hero />
 
         <CategoryFilter
