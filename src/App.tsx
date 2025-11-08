@@ -118,12 +118,6 @@ function App() {
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {user && isProfileOpen && (
-          <div className="mb-8">
-            <UserProfile />
-          </div>
-        )}
-
         <div className="bg-gradient-to-r from-red-500 via-orange-500 to-orange-400 text-white text-center py-3 rounded-lg mb-6">
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
@@ -209,6 +203,13 @@ function App() {
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
       />
+
+      {user && (
+        <UserProfile
+          isOpen={isProfileOpen}
+          onClose={() => setIsProfileOpen(false)}
+        />
+      )}
     </div>
   );
 }
