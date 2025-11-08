@@ -114,18 +114,13 @@ function App() {
         cartCount={cartCount}
         onCartClick={() => setIsCartOpen(true)}
         onLoginClick={() => setIsLoginOpen(true)}
+        onProfileClick={() => setIsProfileOpen(!isProfileOpen)}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {user && (
+        {user && isProfileOpen && (
           <div className="mb-8">
-            <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="text-sm text-green-600 hover:text-green-700 font-medium mb-3"
-            >
-              {isProfileOpen ? 'Hide Profile' : 'View Profile'}
-            </button>
-            {isProfileOpen && <UserProfile />}
+            <UserProfile />
           </div>
         )}
 
