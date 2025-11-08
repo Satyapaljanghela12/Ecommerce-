@@ -4,7 +4,7 @@ import type { CartItem } from '../lib/supabase';
 type CartProps = {
   isOpen: boolean;
   onClose: () => void;
-  cartItems: (CartItem & { products: any })[];
+  cartItems: (CartItem & { products: Record<string, unknown> })[];
   onUpdateQuantity: (itemId: string, quantity: number) => void;
   onRemoveItem: (itemId: string) => void;
 };

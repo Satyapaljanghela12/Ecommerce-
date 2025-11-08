@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase, type Product, type Category, type CartItem } from './lib/supabase';
+import { useAuth } from './hooks/useAuth';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CategoryFilter from './components/CategoryFilter';
@@ -11,7 +12,6 @@ import LoginModal from './components/LoginModal';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
 import ProductSlider from './components/ProductSlider';
-import { useAuth } from './contexts/AuthContext';
 
 function App() {
   const { user } = useAuth();

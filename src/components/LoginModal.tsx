@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Mail, Lock } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -60,7 +60,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           }, 1000);
         }
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);

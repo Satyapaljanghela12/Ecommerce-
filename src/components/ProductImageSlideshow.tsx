@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -23,11 +23,7 @@ export default function ProductImageSlideshow({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadImages();
-  }, [productId]);
-
-  async function loadImages() {
+  const loadImages = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -43,7 +39,11 @@ export default function ProductImageSlideshow({
     } finally {
       setLoading(false);
     }
-  }
+  }, [productId]);
+
+  useEffect(() => {
+    loadImages();
+  }, [loadImages]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>

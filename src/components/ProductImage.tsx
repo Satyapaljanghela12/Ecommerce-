@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 
 type ProductImageProps = {
@@ -11,11 +11,7 @@ export default function ProductImage({ productId, productName, className = '' }:
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadImage();
-  }, [productId]);
-
-  async function loadImage() {
+  const loadImage = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -34,7 +30,11 @@ export default function ProductImage({ productId, productName, className = '' }:
     } finally {
       setLoading(false);
     }
-  }
+  }, [productId]);
+
+  useEffect(() => {
+    loadImage();
+  }, [loadImage]);
 
   if (loading) {
     return (

@@ -62,7 +62,6 @@ export default function ProductSlider({
   if (products.length === 0) return null;
 
   const maxIndex = Math.max(1, products.length - itemsPerView + 1);
-  const visibleProducts = products.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
     <div className="relative bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 sm:p-8 mb-8">
