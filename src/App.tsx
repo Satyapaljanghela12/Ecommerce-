@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
+import ProductSlider from './components/ProductSlider';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
@@ -122,8 +123,6 @@ function App() {
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
 
-<<<<<<< HEAD
-=======
         {!loading && products.length > 0 && (
           <ProductSlider
             products={products.slice(0, 12)}
@@ -134,7 +133,6 @@ function App() {
           />
         )}
 
->>>>>>> 536269158d6c17c19ea67771a28536628415f8f3
         <Hero />
 
         <CategoryFilter
