@@ -1,5 +1,6 @@
 import { Heart, ShoppingCart } from 'lucide-react';
 import type { Product } from '../lib/supabase';
+import ProductImage from './ProductImage';
 
 type ProductCardProps = {
   product: Product;
@@ -43,11 +44,11 @@ export default function ProductCard({
         onClick={() => onProductClick(product)}
         className="w-full aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden hover:bg-gray-200 transition-colors cursor-pointer"
       >
-        {product.image_url ? (
-          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-        ) : (
-          <div className="text-6xl">📱</div>
-        )}
+        <ProductImage
+          productId={product.id}
+          productName={product.name}
+          className="rounded-lg"
+        />
       </button>
 
       <div className="space-y-2">
