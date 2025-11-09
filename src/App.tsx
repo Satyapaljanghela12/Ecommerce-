@@ -11,6 +11,9 @@ import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
+import HotDeal from './components/HotDeal';
+import Shop from './components/Shop';
+import Blog from './components/Blog';
 
 function App() {
   const { user } = useAuth();
@@ -178,6 +181,12 @@ function App() {
             </div>
           </>
         )}
+
+        <HotDeal />
+
+        <Shop />
+
+        <Blog />
       </main>
 
       <Footer />
