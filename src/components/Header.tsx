@@ -1,4 +1,5 @@
-import { Search, ShoppingCart, Heart, User } from 'lucide-react';
+import { Search, ShoppingCart, Heart, User, Menu, X } from 'lucide-react';
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 type HeaderProps = {
@@ -10,9 +11,25 @@ type HeaderProps = {
 
 export default function Header({ cartCount, onCartClick, onLoginClick, onProfileClick }: HeaderProps) {
   const { user } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const userEmail = user?.email || '';
   const userInitial = userEmail.charAt(0).toUpperCase();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const yOffset = -80;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -23,11 +40,20 @@ export default function Header({ cartCount, onCartClick, onLoginClick, onProfile
           </div>
 
           <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-green-600 font-medium">Home</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Shop</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Blog</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Hot Deal</a>
+            <button onClick={scrollToTop} className="text-green-600 font-medium hover:text-green-700 transition-colors">Home</button>
+            <button onClick={() => scrollToSection('shop')} className="text-gray-700 hover:text-gray-900 transition-colors">Shop</button>
+            <button onClick={() => scrollToSection('blog')} className="text-gray-700 hover:text-gray-900 transition-colors">Blog</button>
+            <button onClick={() => scrollToSection('hot-deal')} className="text-gray-700 hover:text-gray-900 transition-colors">Hot Deal</button>
           </nav>
+
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-gray-600 hover:text-gray-900"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
 
           <div className="flex items-center space-x-4">
             <button className="p-2 text-gray-600 hover:text-gray-900">
@@ -67,6 +93,19 @@ export default function Header({ cartCount, onCartClick, onLoginClick, onProfile
             </button>
           </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <nav className="md:hidden border-t border-gray-200 bg-white">
+            <div className="px-4 py-3 space-y-2">
+              <button
+                onClick={scrollToTop}
+                className="block w-full text-left px-3 py-2 text-green-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Home
+              </button>
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   );
