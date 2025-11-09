@@ -11,7 +11,6 @@ import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import ProductDetail from './components/ProductDetail';
 import UserProfile from './components/UserProfile';
-import ProductSlider from './components/ProductSlider';
 
 function App() {
   const { user } = useAuth();
@@ -122,16 +121,6 @@ function App() {
         <div className="bg-gradient-to-r from-red-500 via-orange-500 to-orange-400 text-white text-center py-3 rounded-lg mb-6">
           <p className="font-medium">GET THE PRODUCTS AS YOUR NEEDS</p>
         </div>
-
-        {!loading && products.length > 0 && (
-          <ProductSlider
-            products={products.slice(0, 12)}
-            onAddToCart={handleAddToCart}
-            onToggleWishlist={handleToggleWishlist}
-            onProductClick={setSelectedProduct}
-            isInWishlist={(productId) => wishlist.has(productId)}
-          />
-        )}
 
         <Hero />
 
