@@ -14,6 +14,7 @@ import UserProfile from './components/UserProfile';
 import HotDeal from './components/HotDeal';
 import Shop from './components/Shop';
 import Blog from './components/Blog';
+import Checkout from './components/Checkout';
 
 function App() {
   const { user } = useAuth();
@@ -26,6 +27,7 @@ function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -107,6 +109,20 @@ function App() {
       newWishlist.add(productId);
     }
     setWishlist(newWishlist);
+  };
+
+  const handleCheckout = () => {
+    if (!user) {
+      setIsCartOpen(false);
+      setIsLoginOpen(true);
+      return;
+    }
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  const handleCheckoutComplete = () => {
+    setCartItems([]);
   };
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -203,6 +219,7 @@ function App() {
         cartItems={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+        onCheckout={handleCheckout}
       />
 
       <ProductDetail
@@ -225,6 +242,13 @@ function App() {
           onClose={() => setIsProfileOpen(false)}
         />
       )}
+
+      <Checkout
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        cartItems={cartItems}
+        onCheckoutComplete={handleCheckoutComplete}
+      />
     </div>
   );
 }

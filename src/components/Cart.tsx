@@ -7,6 +7,7 @@ type CartProps = {
   cartItems: (CartItem & { products: Record<string, unknown> })[];
   onUpdateQuantity: (itemId: string, quantity: number) => void;
   onRemoveItem: (itemId: string) => void;
+  onCheckout: () => void;
 };
 
 export default function Cart({
@@ -15,6 +16,7 @@ export default function Cart({
   cartItems,
   onUpdateQuantity,
   onRemoveItem,
+  onCheckout,
 }: CartProps) {
   if (!isOpen) return null;
 
@@ -113,7 +115,10 @@ export default function Cart({
                 <span className="text-green-600">${total.toFixed(2)}</span>
               </div>
             </div>
-            <button className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+            <button
+              onClick={onCheckout}
+              className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+            >
               Proceed to Checkout
             </button>
           </div>
