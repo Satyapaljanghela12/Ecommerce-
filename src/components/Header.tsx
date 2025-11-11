@@ -103,6 +103,24 @@ export default function Header({ cartCount, onCartClick, onLoginClick, onProfile
               >
                 Home
               </button>
+              <button
+                onClick={() => scrollToSection('shop')}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Shop
+              </button>
+              <button
+                onClick={() => scrollToSection('blog')}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Blog
+              </button>
+              <button
+                onClick={() => scrollToSection('hot-deal')}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Hot Deal
+              </button>
             </div>
           </nav>
         )}

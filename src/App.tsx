@@ -182,11 +182,17 @@ function App() {
           </>
         )}
 
-        <HotDeal />
+        <div id="hot-deal">
+          <HotDeal />
+        </div>
 
-        <Shop />
+        <div id="shop">
+          <Shop />
+        </div>
 
-        <Blog />
+        <div id="blog">
+          <Blog />
+        </div>
       </main>
 
       <Footer />
